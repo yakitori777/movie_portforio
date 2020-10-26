@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block customcss %}
+{% endblock customcss %}
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert" role="alert">
+        <p><h4>{{movie_object.title}}</h4></p>
+        <p><iframe width="640" height="480" src="{{movie_object.videos}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+        <p>あらすじ：{{movie_object.story}}</p>
+        <p>上映時間：{{movie_object.running_time}}分</p>
+        <p>ジャンル：{{movie_object.genre}}</p>
+        <p>監督：{{movie_object.director}}</p>
+        <p>出演：{{movie_object.cast}}</p>
+        <p>リリース日：{{movie_object.release|date:"Y年m月d日"}}</p>
+        <p>年齢区分：{{movie_object.resting}}</p>
+    </div> 
+    <div class="schedule-content" style="margin-top:100px; margin-bottom:150px; background-color:white;">
+        <ul class="nav nav-tabs" role="tablist">
+            {% for item in datelist %}
+                {% if forloop.first %}
+                    <li class="nav-item">
+                        <a class="nav-link active pt-4 pr-4 pb-4 pl-4" href="#date{{forloop.counter0}}" data-toggle="tab" style="margin:5px 2px 0 2px; font-size:20px; border-right: 1px solid black;;">{{item | date:"n / j"}}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link pt-4 pr-4 pb-4 pl-4" href="#date{{forloop.counter0}}" data-toggle="tab" style="margin:5px 2px 0 2px; font-size:20px; border-right: 1px solid black;">{{item | date:"n / j"}}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <div class="tab-content">
+            {% for item in datelist %}
+                {% if forloop.first %}
+                    <div id="date{{forloop.counter0}}" class="tab-pane active">
+                        <h3 class="mb-4">上映時間を選んで下さい</h3>
+                        {% for hour_list in hourlist %}
+                        <form action="{% url 'select_seat' %}" method="POST">{% csrf_token %}
+                            <script>
+                                function schedule_disp(){
+                                    var time = {{ hour_list }};
+                                    var movie_times = {{ movie_object.running_time }};
+                                    var schedule_time = new Date(0, 0, 1, time, 0, 0);
+                                    var hour = schedule_time.getHours();
+                                    var minute = schedule_time.getMinutes()
+                                    start_time = schedule_time.getHours() + "：" + ( "00" + schedule_time.getMinutes() ).slice(-2);
+
+                                    schedule_time.setMinutes(schedule_time.getMinutes() + movie_times);
+                                    finish_time = schedule_time.getHours() + "：" + ( "00" + schedule_time.getMinutes() ).slice(-2);
+
+                                    var schedule = document.getElementById('id_schedule')
+                                    str = start_time + '　～　' + finish_time;
+                                    document.writeln('<p><button type="submit" class="btn btn-primary btn-lg" id = "id_schedule">'+ str +'</button></p>');
+                                    document.writeln('<input id="id_schedule" name="schedule" type="hidden" value="'+ str +'">');
+                                }
+                                schedule_disp();
+                            </script>
+                            <input id="id_object_pk" name="object_pk" type="hidden" value="{{object_pk}}">
+                            <input id="id_date" name="date" type="hidden" value="{{item}}">
+                            <input id="id_hour" name="hour" type="hidden" value="{{hour_list}}">
+                            <input id="id_movie_object" name="movie_object" type="hidden" value="{{movie_object}}">
+                        </form>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div id="date{{forloop.counter0}}" class="tab-pane">
+                        <h3 class="mb-4">上映時間を選んで下さい</h3>
+                        {% for hour_list  in hourlist %}
+                        <form action="{% url 'select_seat' %}" method="POST">{% csrf_token %}
+                            <script>
+                                function schedule_disp(){
+                                    var time = {{ hour_list }};
+                                    var movie_times = {{ movie_object.running_time }};
+                                    var schedule_time = new Date(0, 0, 1, time, 0, 0);
+                                    var hour = schedule_time.getHours();
+                                    var minute = schedule_time.getMinutes()
+                                    start_time = schedule_time.getHours() + "：" + ( "00" + schedule_time.getMinutes() ).slice(-2);
+
+                                    schedule_time.setMinutes(schedule_time.getMinutes() + movie_times);
+                                    finish_time = schedule_time.getHours() + "：" + ( "00" + schedule_time.getMinutes() ).slice(-2);
+
+                                    var schedule = document.getElementById('id_schedule')
+                                    str = start_time + '　～　' + finish_time;
+                                    document.writeln('<p><button type="submit" class="btn btn-primary btn-lg" id = "id_schedule">'+ str +'</button></p>')
+                                    document.writeln('<input id="id_schedule" name="schedule" type="hidden" value="'+ str +'">');
+                                }
+                                schedule_disp();
+                            </script>
+                            <input id="id_object_pk" name="object_pk" type="hidden" value="{{object_pk}}">
+                            <input id="id_date" name="date" type="hidden" value="{{item}}">
+                            <input id="id_hour" name="hour" type="hidden" value="{{hour_list}}">
+                            <input id="id_movie_object" name="movie_object" type="hidden" value="{{movie_object}}">
+                        </form>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

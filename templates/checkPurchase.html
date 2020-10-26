@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+{% endblock customcss %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert alert-dark" role="alert">
+        <p>作品名：{{movie_object.title}}</p>
+        <p>上映日時：{{schedule_date|date:"Y年m月d日"}}  {{schedule}}</p>
+        <p>スクリーン番号：{{movie_object.pk}}</p>
+        <p>座席<br>
+        <span>
+            {% for item in ticket_list %}
+            {{item}}<br>
+            {% endfor %}
+        </span>
+        </p>
+        <p>値段：{{ticket_total_price}}</p>
+        <p>合計枚数：{{total_ticket_num}}</p>
+        <form action="{% url 'purchase' %}" name="form" method="post">{% csrf_token %}
+            <input type="hidden" id="id_total_price" name="ticket_total_price" value ="{{ticket_total_price}}" >
+            <input id="id_object_pk" name="object_pk" type="hidden" value="{{object_pk}}">
+            <input id="id_date" name="date" type="hidden" value="{{date}}">
+            <input id="id_hour" name="hour" type="hidden" value="{{hour}}">
+            <input type="hidden"  name ="schedule_num" value=${schedule_num}>
+            <input type="hidden"  id="seat_list" name="seat_list" value={{seat_list}}>
+            <input type="hidden"  id="id_price_list" name="price_list" value={{price_list_str}}>
+            <input type="hidden" name="submit_token" value="{{ submit_token }}" />
+            <input id="id_schedule" name="schedule" type="hidden" value="{{schedule}}">
+            <input type="submit"  name="text2" id="test2" value="購入を確定する">
+        </form>
+    </div>
+</div>
+{% endblock content %}

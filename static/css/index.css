@@ -1,0 +1,66 @@
+.show_movie_content {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.movie_ranking_content {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.news_content {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.news_content .overflow-auto {
+  background-color: #333333 !important;
+}
+
+.news_content .overflow-auto a {
+  color: #e5e5e5 !important;
+}
+
+.infomation_content {
+  margin-top: 100px;
+  margin-bottom: 150px;
+}
+
+.slider1 img {
+  margin: 0 auto;
+  display: block;
+  max-width: 1100px;
+  max-height: 480px;
+  height: 480px;
+  width: auto;
+  background: black;
+}
+
+.slider2 img {
+  margin: 5px auto;
+  display: block;
+  width: 250px;
+  height: 330px;
+  position: relative;
+}
+
+.slider2 .slick-prev, .slider2 .slick-next {
+  height: 40px;
+}
+
+.slider3 img {
+  margin: 5px auto;
+  display: block;
+  width: 250px;
+  height: 330px;
+  position: relative;
+}
+
+.slider3 .slick-prev, .slider3 .slick-next {
+  height: 40px;
+}
+
+ul {
+  padding-left: -40px !important;
+}
+/*# sourceMappingURL=index.css.map */

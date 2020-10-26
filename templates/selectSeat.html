@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+{% endblock customcss %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert alert-dark" role="alert">
+        <p>作品名：{{movie_object.title}}</p>
+        <p>上映日時：{{schedule_date|date:"Y年m月d日"}} {{schedule}}</p>
+        <p>スクリーン番号：{{movie_object.pk}}</p>
+    </div>
+    <span id="span_seat_list" name="span" value={{ seat_list }}>
+        <script src="{% static 'js/seatPurchase.js'%}" charset="UTF-8"></script>
+        <form action="{% url 'check_purchase' %}" name="form" method="post" onsubmit="return check_seat_func()">
+            {% csrf_token %}
+            <div class="row seatSelect_container">
+                <div class="col-4" id="purchase_div">
+                    <div class="purchase_content">
+                        <input type="hidden" name="schedule_num" value=${schedule_num}>
+                        <input type="hidden" id="seat_list" name="seat_list1" value=>
+                        <pre>一般            1800円<input type="text" size="1" name = "ticket1" id ="ticket_id1" value="0"  readonly><input type="button" value="+" id="btn_count_up1"/><input type="button" value="-" id="btn_count_down1"/><input type="button" value="リセット" id="btn_reset1"/>
+                        </pre>
+                        <pre>大学生          1500円<input type="text" size="1" name = "ticket2" id ="ticket_id2" value="0"  readonly><input type="button" value="+" id="btn_count_up2"/><input type="button" value="-" id="btn_count_down2"/><input type="button" value="リセット" id="btn_reset2"/>
+                        </pre>
+                        <pre>高校生          1000円<input type="text" size="1" name = "ticket3" id ="ticket_id3" value="0"  readonly><input type="button" value="+" id="btn_count_up3"/><input type="button" value="-" id="btn_count_down3"/><input type="button" value="リセット" id="btn_reset3"/>
+                        </pre>
+                        <pre>小中学生        1000円<input type="text" size="1" name = "ticket4" id ="ticket_id4" value="0"  readonly><input type="button" value="+" id="btn_count_up4"/><input type="button" value="-" id="btn_count_down4"/><input type="button" value="リセット" id="btn_reset4"/>
+                        </pre>
+                        <pre>幼児(3歳以上)    600円<input type="text" size="1" name = "ticket5" id ="ticket_id5" value="0"  readonly><input type="button" value="+" id="btn_count_up5"/><input type="button" value="-" id="btn_count_down5"/><input type="button" value="リセット" id="btn_reset5"/>
+                        </pre>
+                        <p id="total_price_text">合計金額:0</p>
+                        <input type="hidden" id="id_total_price" name="ticket_total_price" value="0">
+                        <button type="button" class="cls_change" name="change" onclick="change_css()">
+                            <font size="5" color="#333399">座席を選択</font>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-8" id="seat_div">
+                    <div class="seat_content">
+                        <script>
+                            seat_get_func();
+                        </script>
+                        <input id="id_object_pk" name="object_pk" type="hidden" value="{{object_pk}}">
+                        <input id="id_date" name="date" type="hidden" value="{{date}}">
+                        <input id="id_hour" name="hour" type="hidden" value="{{hour}}">
+                        <input id="id_movie_object" name="movie_object" type="hidden" value="{{movie_object}}">
+                        <input id="id_schedule" name="schedule" type="hidden" value="{{schedule}}">
+                        <div class="button_content">
+                            <button type="button" class="cls_change" name="change" onclick="change_css()">
+                                <font size="3" color="#333399">チケット枚数を選択</font>
+                            </button>
+                            <input type="submit" name="text2" id="test2">
+                            <script>
+                                change_css_init();
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </span>
+</div>
+{% endblock content %}

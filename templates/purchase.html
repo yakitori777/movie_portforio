@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+{% endblock customcss %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert alert-dark" role="alert">
+        <p>購入が完了致しました。</p>
+        <p>作品名：{{movie_object.title}}</p>
+        <p>上映日時：{{schedule_date|date:"Y年m月d日"}}  {{schedule}}</p>
+        <p>スクリーン番号：{{movie_object.pk}}</p>
+        <p>値段：{{ticket_total_price}}</p>
+        <p>現在の所持ポイント：{{user.point}}</p>
+    </div>
+</div>
+{% endblock content %}

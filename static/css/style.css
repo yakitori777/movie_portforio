@@ -1,0 +1,134 @@
+.blog-header {
+  background: #141414;
+}
+
+.nav-content {
+  background: #F56600 !important;
+}
+
+.nav-content .navbar-nav .nav-link {
+  color: #e5e5e5 !important;
+}
+
+.blog-header-logo {
+  color: #e5e5e5 !important;
+  text-decoration: none;
+}
+
+.blog-header-logo:hover {
+  text-decoration: none;
+}
+
+.alert {
+  background-color: #333333 !important;
+}
+
+.container {
+  margin: 30px auto;
+}
+
+body {
+  background-color: #141414 !important;
+}
+
+h1, h2, h3, h4 {
+  color: #e5e5e5;
+}
+
+h2 {
+  border-left: solid 5px #F56600;
+  padding-left: 10px;
+}
+
+p {
+  line-height: 2em;
+  color: #e5e5e5;
+}
+
+.nav-tabs {
+  background-color: #222222 !important;
+}
+
+.nav-tabs a {
+  color: #e5e5e5;
+}
+
+.nav-tabs a:hover {
+  background-color: #e5e5e5 !important;
+  border: medium none;
+  border-radius: 0;
+  color: #141414;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #e5e5e5 !important;
+}
+
+.tab-pane {
+  padding: 30px;
+}
+
+.dataTables_info {
+  margin-bottom: 20px !important;
+}
+
+.paginate_button {
+  margin-bottom: 20px !important;
+  padding: 10px !important;
+  border: solid 1px #141414;
+}
+
+body,
+#wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  border-top: 1px solid #F56600;
+  margin-top: auto;
+}
+
+.tab-content {
+  background-color: #333333 !important;
+}
+
+.seat_content {
+  padding-top: 200px;
+  padding-left: 185px;
+  height: 800px;
+  background-image: url("/static/images/screen.png");
+  border-radius: 10px;
+  border: 2px solid #e5e5e5;
+}
+
+.purchase_content {
+  padding: 10px 10px 10px 20px;
+  border: 1px solid #e5e5e5;
+  background-color: #333333 !important;
+  border-radius: 10px;
+}
+
+.purchase_content pre {
+  color: #e5e5e5;
+}
+
+.seatSelect_container {
+  height: 800px;
+}
+
+.button_content {
+  margin-top: 150px;
+  margin-left: 50px;
+}
+
+.card-title {
+  height: 2em;
+}
+/*# sourceMappingURL=style.css.map */

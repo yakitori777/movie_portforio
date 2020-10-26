@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert alert-dark p-4" role="alert" style="width:100%;">
+        <h2 class="mb-4">サイト案内</h2>
+        <p class="mb-4">映画のオンラインチケット購入サイトです。購入の大まかな流れは会員登録→映画詳細ページ→座席選択→チケット購入の順番です。<br>
+        会員が作成されると始めに50000ポイント所持しているので、そのポイントを消費して映画チケットを購入出来ます。<br>
+        会員情報はポイントを含めマイページから変更出来るので、ポイント残高が足りなくなった場合は追加して下さい。<br>
+        username : debug password : debug テスト用のユーザーですが此方を使用すると会員登録しなくてもログイン出来ます。
+        </p>
+        <h2 class="mb-4">当サイトでの使用言語等</h2>
+        <p class="mb-4">言語・・・HTML, CSS, Sass, JavaScript, Python<br>
+           フレームワーク、ライブラリ・・・Django, Bootstrap4, jquery, slick.js<br>
+           エディター・・・VScode
+        </p>
+        <h2 class="mb-4">ER図</h2>
+        <img class="img-fluid mb-4" src="{% static 'images/ER.png'%}">
+    </div>
+</div>
+{% endblock content %}

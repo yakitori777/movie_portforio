@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block customcss %}
+{% endblock customcss %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+    <h1 class="m-4" style="margin-left:300px !important;">上映中作品</h1>
+    <div class="card-columns" style="column-count: 4; margin: 10px 300px 100px 300px;">
+        {% for item in movie_list %}
+        <a href="{% url 'movie_detail' item.pk %}">
+        <div class="card m-3 mx-auto" >
+            <img class="card-img-top" src="{{item.images.url}}" alt="ライトコースのイメージ画像" height="400px">
+            <hr>
+            <div class="card-body p-0">
+                <h5 class="card-title" style="color:black;">{{item.title}}</h5>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+{% endblock content %}
+

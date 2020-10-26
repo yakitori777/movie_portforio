@@ -1,0 +1,133 @@
+$main-color: #141414;
+$sub-color1: #F56600;
+$content-color: #333333;
+$font-color: #e5e5e5;
+
+.blog-header{
+    background:$main-color;
+}
+
+.nav-content{
+    background: $sub-color1 !important;
+
+    & .navbar-nav{
+        & .nav-link{
+            color: $font-color !important;
+        }
+    }
+}
+
+.blog-header-logo{
+    color: $font-color !important;
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+.alert{
+    background-color:$content-color !important;
+}
+
+
+.container{
+    margin: 30px auto;
+}
+
+body{
+    background-color:$main-color !important;
+}
+
+h1, h2, h3, h4{
+    color:$font-color;
+}
+
+h2{
+    border-left: solid 5px $sub-color1;
+    padding-left: 10px;
+}
+
+p{
+    line-height: 2em;
+    color:$font-color;
+}
+
+.nav-tabs{
+    background-color: #222222 !important;
+    a{
+        color:$font-color;
+        &:hover{
+            background-color: $font-color !important; 
+            border: medium none; 
+            border-radius: 0; 
+            color:$main-color; 
+        }
+    }
+
+    & .nav-link.active{
+        background-color: $font-color !important; 
+    }
+}
+
+.tab-pane { 
+    padding:30px;
+}
+.dataTables_info{
+    margin-bottom:20px !important;
+}
+
+.paginate_button {
+    margin-bottom:20px !important;
+    padding:10px !important;
+    border: solid 1px $main-color;
+}
+
+body,
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+ 
+footer {
+    border-top: 1px solid $sub-color1;
+    margin-top: auto;
+}
+
+.tab-content{
+    background-color:$content-color !important;
+}
+
+.seat_content{
+    padding-top: 200px;
+    padding-left: 185px;
+    height: 800px;
+    background-image: url("/static/images/screen.png");
+    border-radius:10px;
+    border: 2px solid $font-color;
+}
+
+.purchase_content{
+    padding:10px 10px 10px 20px;
+    border: 1px solid $font-color;
+    background-color:$content-color !important;
+    border-radius: 10px;
+    pre{
+        color:$font-color;
+    }
+}
+
+.seatSelect_container{
+    height: 800px;
+}
+
+
+
+.button_content{
+    margin-top: 150px;
+    margin-left: 50px;
+}
+
+.card-title{
+    height:2em;
+}

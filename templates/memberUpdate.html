@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert alert-dark" role="alert">
+        <form action="" method="POST">{% csrf_token %}
+            <p>ユーザー名：{{ form.name }}</p>
+            <p>電話番号：{{ form.tel }}</p>
+            <p>住所：{{ form.address }}</p>
+            <p>所持ポイント：{{ form.point }}</p>
+            <input type="submit" value="登録者情報を変更する">
+        </form>
+    </div>
+</div>
+{% endblock content %}

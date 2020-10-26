@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert alert-dark" role="alert" style="width:100%;">
+        <p>多重購入エラー、又は、ポイントの残高が足りません。<br>マイページの会員情報の変更画面からポイントの追加を行って下さい。</p>
+        <p><a class="btn btn-primary btn-lg" href="{% url 'member_mypage' user.pk %}">マイページ</a></p>
+    </div>
+</div>
+{% endblock content %}

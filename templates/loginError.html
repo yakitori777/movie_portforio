@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <div class="alert alert-dark" role="alert" style="width:100%;">
+        <p>チケットを購入する為にはログインが必要になります。</p>
+        <p><a class="btn btn-primary btn-lg mt-4" href="{% url 'signup'%}">会員登録画面へ</a></p>
+        <p><a class="btn btn-primary btn-lg mt-4" href="{% url 'login'%}">ログイン画面へ</a></p>
+    </div>
+</div>
+{% endblock content %}
