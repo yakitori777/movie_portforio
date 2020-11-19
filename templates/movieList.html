@@ -32,28 +32,18 @@
   var app = new Vue({
     delimiters: ['[[', ']]'],
     el: '#app',
-    props:{
-      pk: 1,
-    },
     data: {
       todos: [],
-      message: '',
-      myName: 'ゲスト',
-      time: 0,
       search: '',
-
     },
     mounted: function () {
-      axios.get('{% url "test_movie_list_func" %}')
+      axios.get('{% url "movie_list_func" %}')
         .then(function (response) {
           for (var d in response.data) {
             app.todos.push(response.data[d]);
           }
         })
         .catch(function (error) {
-          console.log('aaaa');
-          console.log(error);
-          console.log(response.abc);
           app.todos.push(response.abc);
         })
         .then(function () {});
@@ -65,19 +55,6 @@
         }, this)
       },
     },
-    methods: {
-      changeStatus: function (item) {
-        item.done = !item.done;
-      },
-      dateGet: function (myName) {
-        this.message = new Date().toLocaleString();
-        console.log(this.myName);
-      },
-      onchange() {
-        console.log(this.time.toFixed(1))
-      },
-
-    }
   })
 </script>
 {% endblock content %}
