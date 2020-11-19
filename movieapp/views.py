@@ -12,6 +12,7 @@ from django.http import JsonResponse
 def movie_list_func(request):
     movie = MovieDetailModel.objects.all().values()
     movie_list = list(movie)
+    name = 'abc'
     return JsonResponse(movie_list, safe=False)
 
 def movie_detail_func(request,pk):
@@ -60,8 +61,7 @@ def readme_func(request):
 def vuetest_func(request):
     return render(request, 'vuetest.html')
 
-def test_movie_list_func(request):
+def vue_movie_list_func(request):
     movie = MovieDetailModel.objects.all().values()
     movie_list = list(movie)
-    name = 'abc'
     return JsonResponse(movie_list, safe=False)
