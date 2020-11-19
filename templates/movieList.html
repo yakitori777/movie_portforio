@@ -15,7 +15,7 @@
   <h1 class="m-4" style="margin-left:300px !important;">上映中作品</h1>
   <div class="card-columns" style="column-count: 4;">
     <div v-for="b in filteredList">
-      <a v-bind:href="'http://www.movieportforio.work/movie/detail/'+b.id+'/'">
+      <a v-bind:href="'http://www.movieyakitoriportfolio.work/movie/detail/'+b.id+'/'">
         <div class="card m-3 mx-auto">
           <img class="card-img-top" v-bind:src="'/media/'+b.images" alt="ライトコースのイメージ画像" height="400px">
           <hr>
@@ -37,14 +37,13 @@
       search: '',
     },
     mounted: function () {
-      axios.get('{% url "movie_list_func" %}')
+      axios.get('{% url "vue_movie_list" %}')
         .then(function (response) {
           for (var d in response.data) {
             app.todos.push(response.data[d]);
           }
         })
         .catch(function (error) {
-          app.todos.push(response.abc);
         })
         .then(function () {});
     },
