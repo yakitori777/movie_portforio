@@ -7,19 +7,77 @@
 {% endblock header %}
 
 {% block content %}
-    <h1 class="m-4" style="margin-left:300px !important;">上映中作品</h1>
-    <div class="card-columns" style="column-count: 4; margin: 10px 300px 100px 300px;">
-        {% for item in movie_list %}
-        <a href="{% url 'movie_detail' item.pk %}">
-        <div class="card m-3 mx-auto" >
-            <img class="card-img-top" src="{{item.images.url}}" alt="ライトコースのイメージ画像" height="400px">
-            <hr>
-            <div class="card-body p-0">
-                <h5 class="card-title" style="color:black;">{{item.title}}</h5>
-            </div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<div class='container' id="app">
+　<p style="margin:0 0 0 300px !important;">映画タイトルを検索</p>
+  <input type="text" placeholder="タイトル検索" v-model="search" style="margin:0 0 0 300px !important;">
+  <h1 class="m-4" style="margin-left:300px !important;">上映中作品</h1>
+  <div class="card-columns" style="column-count: 4;">
+    <div v-for="b in filteredList">
+      <a v-bind:href="'http://www.movieportforio.work/movie/detail/'+b.id+'/'">
+        <div class="card m-3 mx-auto">
+          <img class="card-img-top" v-bind:src="'/media/'+b.images" alt="ライトコースのイメージ画像" height="400px">
+          <hr>
+          <div class="card-body p-0">                                                                                    
+            <h5 class="card-title" style="color:black;">[[b.title]]</h5>
+          </div>
         </div>
-        </a>
-        {% endfor %}
+      </a>
     </div>
-{% endblock content %}
+  </div>
+</div>
 
+<script>
+  var app = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#app',
+    props:{
+      pk: 1,
+    },
+    data: {
+      todos: [],
+      message: '',
+      myName: 'ゲスト',
+      time: 0,
+      search: '',
+
+    },
+    mounted: function () {
+      axios.get('{% url "test_movie_list_func" %}')
+        .then(function (response) {
+          for (var d in response.data) {
+            app.todos.push(response.data[d]);
+          }
+        })
+        .catch(function (error) {
+          console.log('aaaa');
+          console.log(error);
+          console.log(response.abc);
+          app.todos.push(response.abc);
+        })
+        .then(function () {});
+    },
+    computed: {
+      filteredList: function () {
+        return this.todos.filter(function (b) {
+          return b.title.indexOf(this.search) > -1;
+        }, this)
+      },
+    },
+    methods: {
+      changeStatus: function (item) {
+        item.done = !item.done;
+      },
+      dateGet: function (myName) {
+        this.message = new Date().toLocaleString();
+        console.log(this.myName);
+      },
+      onchange() {
+        console.log(this.time.toFixed(1))
+      },
+
+    }
+  })
+</script>
+{% endblock content %}
