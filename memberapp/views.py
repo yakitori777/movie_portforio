@@ -43,7 +43,7 @@ def indexfunc(request):
     count = 0
     for item in ranking_dict:
         ranking_list.append(MovieDetailModel.objects.get(pk=item['schedule_model__movie_detail_model']))
-        if count >= 5:
+        if count >= 10:
             break
         count += 1
     return render(request, 'index.html', {'movie_object_list':movie_object_list, 'ranking_list':ranking_list})
