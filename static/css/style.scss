@@ -131,3 +131,10 @@ footer {
 .card-title{
     height:2em;
 }
+
+.navbar-toggler{
+    background-color:$content-color !important;
+    & icon{
+        background-color:none;
+    }
+}

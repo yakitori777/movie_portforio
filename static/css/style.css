@@ -131,4 +131,12 @@ footer {
 .card-title {
   height: 2em;
 }
+
+.navbar-toggler {
+  background-color: #333333 !important;
+}
+
+.navbar-toggler icon {
+  background-color: none;
+}
 /*# sourceMappingURL=style.css.map */
