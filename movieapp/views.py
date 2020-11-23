@@ -10,10 +10,8 @@ import json
 from django.http import JsonResponse
 
 def movie_list_func(request):
-    movie = MovieDetailModel.objects.all().values()
-    movie_list = list(movie)
-    name = 'abc'
-    return JsonResponse(movie_list, safe=False)
+    movie_list = MovieDetailModel.objects.all()
+    return render(request, 'movieList.html', {'movie_list':movie_list})
 
 def movie_detail_func(request,pk):
     movie_object = MovieDetailModel.objects.get(pk=pk)
@@ -58,10 +56,7 @@ def login_error_func(request):
 def readme_func(request):
     return render(request, 'readme.html')
 
-def vuetest_func(request):
-    return render(request, 'vuetest.html')
-
 def vue_movie_list_func(request):
     movie = MovieDetailModel.objects.all().values()
-    movie_list = list(movie)
-    return JsonResponse(movie_list, safe=False)
+    movie_object_list = list(movie)
+    return JsonResponse(movie_object_list, safe=False)
