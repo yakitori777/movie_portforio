@@ -11,18 +11,6 @@ from datetime import timedelta
 import datetime
 import uuid
 
-def movie_list_func(request):
-    movie_list = MovieDetailModel.objects.all()
-    return render(request, 'movieList.html', {'movie_list':movie_list})
-
-def movie_detail_func(request,pk):
-    movie_object = MovieDetailModel.objects.get(pk=pk)
-    datelist = []
-    nowdate = timezone.datetime.now().replace(hour=0,minute=0,second=0,microsecond=0)
-    for date_num in range(7):
-        datelist.append(nowdate + datetime.timedelta(days=date_num))
-    return render(request, 'movieDetail.html',{'movie_object':movie_object, 'datelist':datelist})
-
 def test_schedule_add_func(request):
     ScheduleModel.objects.all().delete()
     movie_detail_models = MovieDetailModel.objects.all()
