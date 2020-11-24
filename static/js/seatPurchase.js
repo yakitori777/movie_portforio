@@ -319,19 +319,25 @@ function change_css_init(){
 
 function change_IMG(x){
     console.log("引数を表示します！"+x);
-    var judge = list.indexOf(x);
+	var judge = list.indexOf(x);
+	// クリックした座席と同じ座席が配列内に無かった時
     if(judge == -1){
         if(seat_list_size >= total_ticket_num){
             console.log("チケット枚数 "+total_ticket_num);
-            console.log("選択座席数"+seat_list_size);
+			console.log("選択座席数"+seat_list_size);
+			var lead_seat = list[0];
+			list.shift();　//配列の先頭の座席を削除して詰める
+			document.getElementById(lead_seat).src=img[0].src; //座席の色を選択されていない色に戻す
+			list.push(x);
+			document.getElementById(x).src=img[1].src;
         }else{
             list.push(x);
-            document.getElementById(x).src=img[1].src;
+			document.getElementById(x).src=img[1].src;
         }
-    }else{
-        list.splice(judge,1);
-        document.getElementById(x).src=img[0].src;
-    }
+    }else{//配列内にあった時座席
+        list.splice(judge,1);　//配列のjudge番目にある要素を1つ削除
+		document.getElementById(x).src=img[0].src; //座席の色を選択されていない色に戻す
+	}
     document.getElementById("seat_list").setAttribute("value",list);
     seat_list_size = list.length;
     console.log("座席一覧 "+list);
