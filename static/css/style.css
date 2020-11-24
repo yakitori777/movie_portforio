@@ -139,4 +139,9 @@ footer {
 .navbar-toggler icon {
   background-color: none;
 }
+
+.btn-outline-secondary {
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
 /*# sourceMappingURL=style.css.map */
