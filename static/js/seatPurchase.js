@@ -296,8 +296,6 @@ function change_css(){
 		seat_css_style.style.opacity = "0.3";
 		seat_css_style.style.pointerEvents = "none";
 		console.log("処理実行"+list);
-		console.log("処理実行"+list);
-		console.log("処理実行"+list);
 		for(var i = 0;i < list.length;){
 			var str = list[0];
 			change_IMG(str);
@@ -337,7 +335,8 @@ function change_IMG(x){
     }else{//配列内にあった時座席
         list.splice(judge,1);　//配列のjudge番目にある要素を1つ削除
 		document.getElementById(x).src=img[0].src; //座席の色を選択されていない色に戻す
-	}
+0
+.	}
     document.getElementById("seat_list").setAttribute("value",list);
     seat_list_size = list.length;
     console.log("座席一覧 "+list);
