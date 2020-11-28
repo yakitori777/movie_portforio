@@ -17,6 +17,19 @@ $font-color: #e5e5e5;
     }
 }
 
+.site-header{
+
+    & a{
+        color: $font-color !important;
+    }
+
+    & .navbar-nav{
+        & .nav-link{
+            color: $font-color !important;
+        }
+    }
+}
+
 .blog-header-logo{
     color: $font-color !important;
     text-decoration: none;
@@ -143,4 +156,8 @@ footer {
 .btn-outline-secondary {
     color: $font-color !important;
     border-color:$font-color !important;
+}
+
+.dropdown-menu{
+    background-color: rgba(255, 255, 255, 0.0) !important;
 }

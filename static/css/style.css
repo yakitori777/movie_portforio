@@ -10,6 +10,14 @@
   color: #e5e5e5 !important;
 }
 
+.site-header a {
+  color: #e5e5e5 !important;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #e5e5e5 !important;
+}
+
 .blog-header-logo {
   color: #e5e5e5 !important;
   text-decoration: none;
@@ -144,5 +152,9 @@ footer {
 .btn-outline-secondary {
   color: #e5e5e5 !important;
   border-color: #e5e5e5 !important;
+}
+
+.dropdown-menu {
+  background-color: rgba(255, 255, 255, 0) !important;
 }
 /*# sourceMappingURL=style.css.map */
