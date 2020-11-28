@@ -15,7 +15,16 @@
   <script type="text/javascript" src="{% static 'js/slick.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-  
+
+  <script src="../../assets/js/vendor/holder.min.js"></script>
+  <script>
+    Holder.addTheme('thumb', {
+      bg: '#55595c',
+      fg: '#eceeef',
+      text: 'Thumbnail'
+    });
+  </script>
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
@@ -24,103 +33,151 @@
 
 <body>
   <div id="wrapper">
-      <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1">
-            <a class="text-muted" href="#"></a>
+    <nav class="site-header sticky-top py-1">
+      <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2" href="{% url 'index' %}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="d-block mx-auto">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+            <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+            <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+            <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+            <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+            <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+          </svg>
+        </a>
+        <a class="py-2 d-none d-md-inline-block" href="{% url 'index' %}">Home</a>
+        <a class="py-2 d-none d-md-inline-block" href="{% url 'movie_list' %}">Movies</a>
+        <a class="py-2 d-none d-md-inline-block" href="{% url 'readme' %}">Features</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Enterprise</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Support</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Pricing</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Cart</a>
+        <div class="nav-item dropdown">
+          {% if user.is_authenticated %}
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{ user.username }}さん
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a href="{% url 'member_mypage' user.pk %}">マイページ</a><br />
+            <a href="{% url 'logout' %}">ログアウト</a><br />
           </div>
-          <div class="col-4 text-center home_content">
-            <a class="blog-header-logo h3" href="{% url 'index' %}">HOME</a>
+          {% else %}
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            会員登録 / ログイン
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a href="{% url 'signup' %}">会員登録</a><br />
+            <a href="{% url 'login' %}">ログイン</a><br />
           </div>
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            {% if user.is_authenticated %}
-            <p>
-              <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 ml-3 p-3"
-                href="{% url 'member_mypage' user.pk %}">{{ user.username }}さんのマイページ</a>
-            </p>
-            <p>
-              <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 mr-5 p-3" href="{% url 'logout' %}">Logout</a>
-            </p>
-            {% else %}
-            <p>
-              <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 ml-3 p-3" href="{% url 'signup' %}">Signup</a>
-            </p>
-            <p>
-              <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 mr-5 p-3" href="{% url 'login' %}">Login</a>
-            </p>
-            {% endif %}
-          </div>
+          {% endif %}
         </div>
-      </header>
-      <nav class="nav-content">
-        <nav class="navbar navbar-expand-lg">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'index' %}">トップページ<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'movie_list' %}">映画一覧</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'readme' %}">Readme</a>
-              </li>
-              <li class="nav-item dropdown">
-                {% if user.is_authenticated %}
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  {{ user.username }}さん
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a href="{% url 'member_mypage' user.pk %}">マイページ</a><br />
-                  <a href="{% url 'logout' %}">ログアウト</a><br />
-                </div>
-                {% else %}
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  会員登録 / ログイン
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a href="{% url 'signup' %}">会員登録</a><br />
-                  <a href="{% url 'login' %}">ログイン</a><br />
-                </div>
-                {% endif %}
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </nav>
-      {% block header %} {% endblock header %} {% block content %}
-      {% endblock content %}
-
-      <footer class="text-muted">
-        <div class="container">
-          <p class="float-right">
-            <a href="#">Back to top</a>
-          </p>
-          <p>映画サイトのポートフォリオ</p>
+      </div>
+    </nav>
+    {% comment %} <header class="blog-header py-3">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+          <a class="text-muted" href="#"></a>
+        </div>
+        <div class="col-4 text-center home_content">
+          <a class="blog-header-logo h3" href="{% url 'index' %}">HOME</a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          {% if user.is_authenticated %}
           <p>
-            仕様等は<a href="{% url 'readme' %}">こちらのReadme</a>からご確認頂けます。
+            <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 ml-3 p-3"
+              href="{% url 'member_mypage' user.pk %}">{{ user.username }}さんのマイページ</a>
           </p>
+          <p>
+            <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 mr-5 p-3" href="{% url 'logout' %}">Logout</a>
+          </p>
+          {% else %}
+          <p>
+            <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 ml-3 p-3" href="{% url 'signup' %}">Signup</a>
+          </p>
+          <p>
+            <a class="btn btn-sm btn-outline-secondary mt-3 mr-3 mb-3 mr-5 p-3" href="{% url 'login' %}">Login</a>
+          </p>
+          {% endif %}
         </div>
-      </footer>
-    </div>
+      </div>
+    </header>
+    <nav class="nav-content">
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'index' %}">トップページ<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'movie_list' %}">映画一覧</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'readme' %}">Readme</a>
+            </li>
+            <li class="nav-item dropdown">
+              {% if user.is_authenticated %}
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{ user.username }}さん
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a href="{% url 'member_mypage' user.pk %}">マイページ</a><br />
+                <a href="{% url 'logout' %}">ログアウト</a><br />
+              </div>
+              {% else %}
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                会員登録 / ログイン
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a href="{% url 'signup' %}">会員登録</a><br />
+                <a href="{% url 'login' %}">ログイン</a><br />
+              </div>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </nav> {% endcomment %}
+    {% block header %} 
+    {% endblock header %} 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+    {% block content %}
+    {% endblock content %}
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>映画サイトのポートフォリオ</p>
+        <p>
+          仕様等は<a href="{% url 'readme' %}">こちらのReadme</a>からご確認頂けます。
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
 </body>
 
 </html>
