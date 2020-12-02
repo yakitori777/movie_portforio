@@ -7,7 +7,8 @@ from datetime import timedelta
 from django.shortcuts import redirect
 import datetime
 import json
-from django.http import JsonResponse
+from django.http import HttpResponseServerError, JsonResponse
+import requests
 
 def movie_list_func(request):
     movie_list = MovieDetailModel.objects.all()
@@ -57,6 +58,21 @@ def readme_func(request):
     return render(request, 'readme.html')
 
 def vue_movie_list_func(request):
-    movie = MovieDetailModel.objects.all().values()
-    movie_object_list = list(movie)
-    return JsonResponse(movie_object_list, safe=False)
+    if request.method == 'POST' and request.body:
+        json_dict = json.loads(request.body)
+        search = json_dict['search']
+        print(search)
+        if search == "":
+            print("null")
+            movie = MovieDetailModel.objects.all().values()
+            movie_object_list = list(movie)
+
+            return JsonResponse(movie_object_list, safe=False)
+        else:
+            print("faild")
+            movie = MovieDetailModel.objects.filter(title__icontains=search).values()
+            movie_object_list = list(movie)
+            print(movie_object_list)
+            return JsonResponse(movie_object_list, safe=False)
+    else:
+        return HttpResponseServerError()
