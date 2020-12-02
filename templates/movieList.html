@@ -9,17 +9,20 @@
 {% block content %}
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <div class='container' id="app">
-　<p style="margin:0 0 0 300px !important;">映画タイトルを検索</p>
-  <input type="text" placeholder="タイトル検索" v-model="search" style="margin:0 0 0 300px !important;">
+  　<p style="margin:0 0 0 300px !important;">映画タイトルを検索</p>
+  <input type="text" placeholder="タイトル検索" v-model="search" @change="filteredList"
+    style="margin:0 0 0 300px !important;">
+  <button v-on:click="filteredList">検索</button>
   <h1 class="m-4" style="margin-left:300px !important;">上映中作品</h1>
   <div class="card-columns" style="column-count: 4;">
-    <div v-for="b in filteredList">
+    <div v-for="b in todos">
       <a v-bind:href="'/movie/detail/'+b.id+'/'">
         <div class="card m-3 mx-auto">
           <img class="card-img-top" v-bind:src="'/media/'+b.images" alt="ライトコースのイメージ画像" height="400px">
           <hr>
-          <div class="card-body p-0">                                                                                    
+          <div class="card-body p-0">
             <h5 class="card-title" style="color:black;">[[b.title]]</h5>
           </div>
         </div>
@@ -36,23 +39,51 @@
       todos: [],
       search: '',
     },
-    mounted: function () {
-      axios.get('{% url "vue_movie_list" %}')
+    methods: {
+      filteredList: function () {
+
+        app.todos.splice(0, app.todos.length);
+        headers = {
+          'X-CSRFToken': Cookies.get('csrftoken')
+        }
+        console.log(headers)
+        console.log(this.search)
+        data = {
+          "search": this.search,
+        };
+        axios.post('{% url "vue_movie_list" %}', data, {
+            headers: headers
+          })
+          .then(function (response) {
+            for (var d in response.data) {
+              console.log(response.data[d]);
+              app.todos.push(response.data[d]);
+            }
+          })
+          .catch(function (error) {})
+          .then(function () {});
+      },
+    },
+    created: function () {
+      headers = {
+        'X-CSRFToken': Cookies.get('csrftoken')
+      }
+      console.log(headers)
+      console.log(this.search)
+      data = {
+        "search": '',
+      };
+      axios.post('{% url "vue_movie_list" %}', data, {
+          headers: headers
+        })
         .then(function (response) {
           for (var d in response.data) {
+            console.log(response.data[d]);
             app.todos.push(response.data[d]);
           }
         })
-        .catch(function (error) {
-        })
+        .catch(function (error) {})
         .then(function () {});
-    },
-    computed: {
-      filteredList: function () {
-        return this.todos.filter(function (b) {
-          return b.title.indexOf(this.search) > -1;
-        }, this)
-      },
     },
   })
 </script>
