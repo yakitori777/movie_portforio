@@ -5,9 +5,10 @@
 {% endblock customcss %}
 
 {% block content %}
-<form class="form-login" method="POST" action=''>{% csrf_token %}
-  <div class="container">
-    <div class="alert alert-dark p-4" role="alert">
+<div class="container">
+
+  <div class="alert alert-dark p-4" role="alert">
+    <form class="form-login" method="POST" action=''>{% csrf_token %}
       <h1 class="h3 mb-4 font-weight-normal">Please login</h1>
       {% if error %}
       {{ error }}
@@ -19,8 +20,15 @@
       <div class="checkbox mb-3">
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">login</button>
-      <button class="btn btn-lg btn-primary btn-block" type="submit"><a href="{% url 'guest_login' %}"></a>guest login</button>
-    </div>
+    </form>
+    <br>
+    <form class="form-login" method="POST" action='{% url 'guest_login' %}'>{% csrf_token %}
+      <button class="btn btn-lg btn-primary btn-block" type="submit">guest login</button>
+    </form>
   </div>
-</form>
+
+
+</div>
+
+
 {% endblock content %}
