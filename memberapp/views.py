@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Sum
 
+
 # Create your views here.
 def signupfunc(request):
     if request.method == 'POST':
@@ -17,12 +18,13 @@ def signupfunc(request):
         password2 = request.POST['password']
         try:
             User.objects.get(username=username2)
-            return render(request, 'signup.html' ,{'error':'このユーザーは登録されています'})
+            return render(request, 'signup.html', {'error': 'このユーザーは登録されています'})
         except:
-            user = User.objects.create_user(username2, '',password2)
+            user = User.objects.create_user(username2, '', password2)
             user.save()
             return redirect('login')
     return render(request, 'signup.html')
+
 
 def loginfunc(request):
     if request.method == 'POST':
@@ -33,8 +35,20 @@ def loginfunc(request):
             login(request, user)
             return redirect('index')
         else:
-            return render(request, 'login.html' ,{'error':'ユーザーが存在しないかパスワードが間違っています'})
+            return render(request, 'login.html', {'error': 'ユーザーが存在しないかパスワードが間違っています'})
     return render(request, 'login.html')
+
+
+def guest_login_func(request):
+    guest_username = 'debug'
+    guest_password = 'debug'
+    user = authenticate(request, username=guest_username, password=guest_password)
+    if user is not None:
+        login(request, user)
+        return redirect('index')
+    else:
+        return render(request, 'login.html', {'error': 'ユーザーが存在しないかパスワードが間違っています'})
+
 
 def indexfunc(request):
     movie_object_list = MovieDetailModel.objects.all()
@@ -46,21 +60,24 @@ def indexfunc(request):
         if count >= 10:
             break
         count += 1
-    return render(request, 'index.html', {'movie_object_list':movie_object_list, 'ranking_list':ranking_list})
+    return render(request, 'index.html', {'movie_object_list': movie_object_list, 'ranking_list': ranking_list})
+
 
 class MemberUpdate(UpdateView):
     template_name = 'memberUpdate.html'
     model = Profile
-    fields = ('name','address','tel','point')
+    fields = ('name', 'address', 'tel', 'point')
     success_url = reverse_lazy('index')
+
 
 class MemberDetail(DetailView):
     template_name = 'memberMypage.html'
     model = Profile
 
-def member_movie_history_func(request,pk):
+
+def member_movie_history_func(request, pk):
     movie_history = TicketHistoryModel.objects.filter(profile__pk=pk).order_by('schedule_model__show_date')
-    return render(request, 'memberMovieHistory.html', {'movie_history_list':movie_history})
+    return render(request, 'memberMovieHistory.html', {'movie_history_list': movie_history})
 
 
 def logoutfunc(request):

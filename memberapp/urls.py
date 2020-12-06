@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import signupfunc, loginfunc, indexfunc, MemberUpdate, logoutfunc, MemberDetail, member_movie_history_func
+from .views import signupfunc, loginfunc, indexfunc, MemberUpdate, logoutfunc, MemberDetail, member_movie_history_func, guest_login_func
 
 urlpatterns = [
     path('signup/', signupfunc, name='signup'),
     path('login/', loginfunc, name='login'),
+    path('guestLogin/', guest_login_func, name='guest_login'),
     path('logout/', logoutfunc, name='logout'),
     path('update/<int:pk>', MemberUpdate.as_view(), name='member_update'),
     path('mypage/<int:pk>', MemberDetail.as_view(), name='member_mypage'),
