@@ -41,13 +41,10 @@
     },
     methods: {
       filteredList: function () {
-
         app.todos.splice(0, app.todos.length);
         headers = {
           'X-CSRFToken': Cookies.get('csrftoken')
         }
-        console.log(headers)
-        console.log(this.search)
         data = {
           "search": this.search,
         };
@@ -56,7 +53,6 @@
           })
           .then(function (response) {
             for (var d in response.data) {
-              console.log(response.data[d]);
               app.todos.push(response.data[d]);
             }
           })
@@ -68,8 +64,6 @@
       headers = {
         'X-CSRFToken': Cookies.get('csrftoken')
       }
-      console.log(headers)
-      console.log(this.search)
       data = {
         "search": '',
       };
@@ -78,7 +72,6 @@
         })
         .then(function (response) {
           for (var d in response.data) {
-            console.log(response.data[d]);
             app.todos.push(response.data[d]);
           }
         })
