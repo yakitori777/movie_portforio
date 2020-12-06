@@ -8,19 +8,21 @@
         <p class="mb-4">映画のオンラインチケット購入サイトです。購入の大まかな流れは会員登録→映画詳細ページ→座席選択→チケット購入の順番です。<br>
         会員が作成されると始めに50000ポイント所持しているので、そのポイントを消費して映画チケットを購入出来ます。<br>
         会員情報はポイントを含めマイページから変更出来るので、ポイント残高が足りなくなった場合は追加して下さい。<br>
-        username : debug password : debug テスト用のユーザーですが此方を使用すると会員登録しなくてもログイン出来ます。
+        ゲストログインの機能を使用すると会員登録しなくてもログイン出来ます。
+        username : debug password : debug テスト用のユーザーですが此方のユーザー情報でもログイン出来ます。
+
         </p>
         <h2 class="mb-4">当サイトでの使用言語等</h2>
         <p class="mb-4">言語・・・HTML, CSS, Sass, JavaScript, Python<br>
-           フレームワーク、ライブラリ・・・Django, Bootstrap4, jquery, slick.js<br>
+           フレームワーク、ライブラリ・・・Django, Bootstrap4, jquery, slick.js, Vue.js<br>
            エディター・・・VScode<br>
            ソースコード・・・<a href="https://github.com/yakitori777/movie_portforio">此方にアップロードしています。</a>
         </p>
         <h2 class="mb-4">ER図</h2>
         <img class="img-fluid mb-4" src="{% static 'images/ER.png'%}">
         <h2 class="mb-4">機能一覧</h2>
-        <p>・ユーザー登録、ログイン、ログアウト<br>
-            ・映画タイトル検索<br>
+        <p>・ユーザー登録、ログイン、ゲストログイン、ログアウト<br>
+            ・映画タイトル検索(Ajax)<br>
             ・チケット枚数選択、座席選択、チケット購入<br>
             ・会員情報変更、映画の鑑賞履歴<br>
         </p>
