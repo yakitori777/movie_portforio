@@ -10,22 +10,25 @@ import json
 from django.http import HttpResponseServerError, JsonResponse
 import requests
 
+
 def movie_list_func(request):
     movie_list = MovieDetailModel.objects.all()
-    return render(request, 'movieList.html', {'movie_list':movie_list})
+    return render(request, 'movieList.html', {'movie_list': movie_list})
 
-def movie_detail_func(request,pk):
+
+def movie_detail_func(request, pk):
     movie_object = MovieDetailModel.objects.get(pk=pk)
     object_pk = pk
     datelist = []
     hourlist = []
-    nowdate = timezone.datetime.now().replace(hour=0,minute=0,second=0,microsecond=0)
+    nowdate = timezone.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     for date_num in range(7):
         format_date = nowdate + datetime.timedelta(days=date_num)
         datelist.append(format_date)
-    for hour_num in range(12,21,3):
+    for hour_num in range(12, 21, 3):
         hourlist.append(hour_num)
-    return render(request, 'movieDetail.html',{'movie_object':movie_object, 'datelist':datelist, 'hourlist':hourlist, 'object_pk':object_pk})
+    return render(request, 'movieDetail.html', {'movie_object': movie_object, 'datelist': datelist, 'hourlist': hourlist, 'object_pk': object_pk})
+
 
 def select_seat_func(request):
     if request.user.is_authenticated:
@@ -47,32 +50,47 @@ def select_seat_func(request):
                 count += 1
             else:
                 seat_list += ',' + name
-        return render(request, 'selectSeat.html',{'movie_object':movie_object, 'date':date, 'hour':hour, 'object_pk':object_pk, 'seat_list':seat_list, 'schedule':schedule, 'schedule_date':schedule_date})
+        return render(request, 'selectSeat.html', {'movie_object': movie_object, 'date': date, 'hour': hour,
+                                                   'object_pk': object_pk, 'seat_list': seat_list, 'schedule': schedule, 'schedule_date': schedule_date})
     else:
         return redirect('login_error')
+
 
 def login_error_func(request):
     return render(request, 'loginError.html')
 
+
 def readme_func(request):
     return render(request, 'readme.html')
+
 
 def vue_movie_list_func(request):
     if request.method == 'POST' and request.body:
         json_dict = json.loads(request.body)
         search = json_dict['search']
-        print(search)
         if search == "":
-            print("null")
             movie = MovieDetailModel.objects.all().values()
             movie_object_list = list(movie)
-
             return JsonResponse(movie_object_list, safe=False)
         else:
-            print("faild")
             movie = MovieDetailModel.objects.filter(title__icontains=search).values()
             movie_object_list = list(movie)
-            print(movie_object_list)
+            return JsonResponse(movie_object_list, safe=False)
+    else:
+        return HttpResponseServerError()
+
+
+def vue_genre_movie_list_func(request):
+    if request.method == 'POST' and request.body:
+        json_dict = json.loads(request.body)
+        search_genre = json_dict['search_genre']
+        if search_genre == "":
+            movie = MovieDetailModel.objects.all().values()
+            movie_object_list = list(movie)
+            return JsonResponse(movie_object_list, safe=False)
+        else:
+            movie = MovieDetailModel.objects.filter(genre__icontains=search_genre).values()
+            movie_object_list = list(movie)
             return JsonResponse(movie_object_list, safe=False)
     else:
         return HttpResponseServerError()
