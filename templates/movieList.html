@@ -10,23 +10,40 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<div class='container' id="app">
-  　<p style="margin:0 0 0 300px !important;">映画タイトルを検索</p>
-  <input type="text" placeholder="タイトル検索" v-model="search" @change="filteredList"
-    style="margin:0 0 0 300px !important;">
-  <button v-on:click="filteredList">検索</button>
-  <h1 class="m-4" style="margin-left:300px !important;">上映中作品</h1>
-  <div class="card-columns" style="column-count: 4;">
-    <div v-for="b in todos">
-      <a v-bind:href="'/movie/detail/'+b.id+'/'">
-        <div class="card m-3 mx-auto">
-          <img class="card-img-top" v-bind:src="'/media/'+b.images" alt="ライトコースのイメージ画像" height="400px">
-          <hr>
-          <div class="card-body p-0">
-            <h5 class="card-title" style="color:black;">[[b.title]]</h5>
+<div class='vue_container' id="app">
+  <div class='container alert alert-dark p-4'>
+    <div class="guide_content">
+    <p>映画タイトルを検索</p>
+    <input type="text" placeholder="タイトル検索" v-model="search" @change="filteredList">
+    <button v-on:click="filteredList">検索</button>
+    <select v-model="search_genre" @change="searchGenre">
+      <option value="">ジャンル検索</option>
+      <option>邦画</option>
+      <option>洋画</option>
+      <option>アニメ</option>
+      <option>コメディ</option>
+      <option>アクション</option>
+      <option>ドラマ</option>
+      <option>ヒューマンドラマ</option>
+      <option>ホラー</option>
+      <option>サスペンス</option>
+      <option>SF</option>
+      <option>ファンタジー</option>
+      <option>ミュージカル</option>
+    </select>
+    <h1>上映中作品</h1>
+    <div class="card-columns" style="column-count: 4;">
+      <div v-for="b in todos">
+        <a v-bind:href="'/movie/detail/'+b.id+'/'">
+          <div class="card m-3 mx-auto">
+            <img class="card-img-top" v-bind:src="'/media/'+b.images" alt="ライトコースのイメージ画像" height="400px">
+            <hr>
+            <div class="card-body p-0">
+              <h5 class="card-title" style="color:black;">[[b.title]]</h5>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -38,6 +55,7 @@
     data: {
       todos: [],
       search: '',
+      search_genre: '',
     },
     methods: {
       filteredList: function () {
@@ -59,6 +77,26 @@
           .catch(function (error) {})
           .then(function () {});
       },
+      searchGenre: function () {
+        console.log(this.search_genre);
+        app.todos.splice(0, app.todos.length);
+        headers = {
+          'X-CSRFToken': Cookies.get('csrftoken')
+        }
+        data = {
+          "search_genre": this.search_genre,
+        };
+        axios.post('{% url "vue_genre_movie_list" %}', data, {
+            headers: headers
+          })
+          .then(function (response) {
+            for (var d in response.data) {
+              app.todos.push(response.data[d]);
+            }
+          })
+          .catch(function (error) {})
+          .then(function () {});
+      }
     },
     created: function () {
       headers = {
