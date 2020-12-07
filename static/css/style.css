@@ -10,12 +10,34 @@
   color: #e5e5e5 !important;
 }
 
-.site-header a {
-  color: #e5e5e5 !important;
+.site-header {
+  background-color: rgba(20, 20, 20, 0.5) !important;
 }
 
-.site-header .navbar-nav .nav-link {
+.site-header .container {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.site-header a {
   color: #e5e5e5 !important;
+  text-decoration: none !important;
+  margin: 0 30px 0 30px !important;
+}
+
+.site-header a:hover {
+  color: #aaaaaa !important;
+  border-bottom: solid 1px red;
+}
+
+.site-header .nav-item .nav-link {
+  color: #e5e5e5 !important;
+  padding-left: 0px !important;
+}
+
+.site-header .nav-item .nav-link:hover {
+  color: #aaaaaa !important;
+  border-bottom: solid 1px red;
 }
 
 .blog-header-logo {
@@ -156,5 +178,22 @@ footer {
 
 .dropdown-menu {
   background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.dropdown-menu a {
+  color: #e5e5e5 !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+}
+
+.dropdown-menu a:hover {
+  color: #aaaaaa !important;
+  border-bottom: solid 1px red;
+}
+
+.vue_container h1 {
+  margin-top: 40px !important;
+  border-left: solid 5px #F56600;
+  padding-left: 10px;
 }
 /*# sourceMappingURL=style.css.map */

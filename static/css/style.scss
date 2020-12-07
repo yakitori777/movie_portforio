@@ -18,14 +18,30 @@ $font-color: #e5e5e5;
 }
 
 .site-header{
-
-    & a{
-        color: $font-color !important;
+    & .container{
+        margin-top:0px !important;
+        margin-bottom:0px !important;
     }
 
-    & .navbar-nav{
+    background-color: rgba( #141414, 0.5) !important;
+    & a{
+        color: $font-color !important;
+        text-decoration: none !important;
+        margin:0 30px 0 30px !important;
+        &:hover{
+            color: #aaaaaa !important;
+            border-bottom: solid 1px red;
+        }
+    }
+
+    & .nav-item{
         & .nav-link{
             color: $font-color !important;
+            padding-left:0px !important;
+            &:hover{
+                color: #aaaaaa !important;
+                border-bottom: solid 1px red;
+            }
         }
     }
 }
@@ -160,4 +176,20 @@ footer {
 
 .dropdown-menu{
     background-color: rgba(255, 255, 255, 0.0) !important;
+    & a{
+        color: $font-color !important;
+        text-decoration: none !important;
+        margin:0 !important;
+        &:hover{
+            color: #aaaaaa !important;
+            border-bottom: solid 1px red;
+        }
+    }
+}
+.vue_container{
+    & h1{
+        margin-top: 40px !important;
+        border-left: solid 5px $sub-color1;
+        padding-left: 10px;
+    }
 }
