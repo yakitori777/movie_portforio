@@ -15,17 +15,39 @@ var seat_list_size = 0;
 
 function seat_get_func(){
 	var x = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+	var row_seat_style1 = [1 ,1 ,0 ,0 ,1 ,1 ,1 ,1 ,0 ,0 ,1 ,1 ];
+	var row_seat_style2 = [0 ,0 ,0 ,0 ,1 ,1 ,1 ,1 ,0 ,0 ,1 ,1 ];
+	var column_seat_style1 = [row_seat_style1, row_seat_style1, row_seat_style1, row_seat_style1, row_seat_style1, row_seat_style2, row_seat_style2];
 	var str = document.getElementById("span_seat_list").getAttribute("value");
 	var seat_list = str.split(',');
 	console.log(seat_list);
-	for(var i = 0;i<7;i++){
-		for(var j = 0;j<7;j++){
-			var str = x[i]+'-'+j;
-			judge = seat_list.indexOf(str);
-			if(judge == -1){
-				document.writeln('<img id="'+str+'" onclick="change_IMG(\'' + str + '\')" src ="/static/images/seat.png">&nbsp;&nbsp;&nbsp;&nbsp;');
+	// for(var i = 0;i<7;i++){
+	// 	for(var j = 0;j<7;j++){
+	// 		var str = x[i]+'-'+j;
+	// 		purchased_judge = seat_list.indexOf(str);
+			
+	// 		if(purchased_judge == -1){
+	// 			document.writeln('<img id="'+str+'" onclick="change_IMG(\'' + str + '\')" src ="/static/images/seat.png">&nbsp;&nbsp;&nbsp;&nbsp;');
+	// 		}else{
+	// 			document.writeln('<img id="'+str+'" src ="/static/images/seat3.png">&nbsp;&nbsp;&nbsp;&nbsp;');
+	// 		}
+	// 	}
+	// 	document.writeln('<br><br>');
+	// }
+	for(i=0; i < column_seat_style1.length ;i++){
+		document.writeln('<pre style="width:20px;">'+x[i]+'</pre>');
+		for(j=0;j < column_seat_style1[i].length;j++){
+			row_seat_style = column_seat_style1[i];
+			if(row_seat_style[j] == 1){
+				var str = x[i]+'-'+j;
+				purchased_judge = seat_list.indexOf(str);
+				if(purchased_judge == -1){
+					document.writeln('<div style="position: relative; display:inline-block;"><img id="'+str+'" onclick="change_IMG(\'' + str + '\')" src ="/static/images/seat.png"><p style="color:black; position: absolute; top: 0; left: 0; text-align: center; pointer-events: none; font-size: 15px; width:31px;">'+str+'</p></div>');
+				}else{
+					document.writeln('<img id="'+str+'" src ="/static/images/seat3.png">');
+				}
 			}else{
-				document.writeln('<img id="'+str+'" src ="/static/images/seat3.png">&nbsp;&nbsp;&nbsp;&nbsp;');
+				document.writeln('<img id="'+str+'" src ="/static/images/seat_background.png">');
 			}
 		}
 		document.writeln('<br><br>');
@@ -284,27 +306,29 @@ window.onload = function(){
 function change_css(){
 	var parchase_css_style = document.getElementById("purchase_div");
 	var seat_css_style = document.getElementById("seat_div");
-	if(select_count == 0){
-		parchase_css_style.style.pointerEvents = "none";
-		parchase_css_style.style.opacity = "0.3";
-		seat_css_style.style.opacity = "";
-		seat_css_style.style.pointerEvents = "";
-		select_count++;
-	}else{
-		parchase_css_style.style.pointerEvents = "";
-		parchase_css_style.style.opacity = "";
-		seat_css_style.style.opacity = "0.3";
-		seat_css_style.style.pointerEvents = "none";
-		console.log("処理実行"+list);
-		for(var i = 0;i < list.length;){
-			var str = list[0];
-			change_IMG(str);
-			console.log(str);
+	if(total_ticket_num != 0){
+		if(select_count == 0){
+			parchase_css_style.style.pointerEvents = "none";
+			parchase_css_style.style.opacity = "0.3";
+			seat_css_style.style.opacity = "";
+			seat_css_style.style.pointerEvents = "";
+			select_count++;
+		}else{
+			parchase_css_style.style.pointerEvents = "";
+			parchase_css_style.style.opacity = "";
+			seat_css_style.style.opacity = "0.3";
+			seat_css_style.style.pointerEvents = "none";
+			console.log("処理実行"+list);
+			for(var i = 0;i < list.length;){
+				var str = list[0];
+				change_IMG(str);
+				console.log(str);
+			}
+			//console.log("消す前 "+list);
+			//list.length=0;
+			//console.log("消した後 "+list);
+			select_count = 0;
 		}
-		//console.log("消す前 "+list);
-		//list.length=0;
-		//console.log("消した後 "+list);
-		select_count = 0;
 	}
 }
 
@@ -335,8 +359,7 @@ function change_IMG(x){
     }else{//配列内にあった時座席
         list.splice(judge,1);　//配列のjudge番目にある要素を1つ削除
 		document.getElementById(x).src=img[0].src; //座席の色を選択されていない色に戻す
-0
-.	}
+	}
     document.getElementById("seat_list").setAttribute("value",list);
     seat_list_size = list.length;
     console.log("座席一覧 "+list);
