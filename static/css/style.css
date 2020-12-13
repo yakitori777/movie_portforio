@@ -131,12 +131,24 @@ footer {
 }
 
 .seat_content {
-  padding-top: 200px;
-  padding-left: 185px;
+  padding-top: 150px;
+  padding-left: 140px;
   height: 800px;
   background-image: url("/static/images/screen.png");
   border-radius: 10px;
   border: 2px solid #e5e5e5;
+}
+
+.seat_content pre {
+  display: inline;
+  width: 20px;
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.seat_content figure p {
+  position: absolute;
+  color: red;
 }
 
 .purchase_content {
@@ -156,7 +168,7 @@ footer {
 
 .button_content {
   margin-top: 150px;
-  margin-left: 50px;
+  margin-left: 100px;
 }
 
 .card-title {
